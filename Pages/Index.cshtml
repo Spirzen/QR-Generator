@@ -1,0 +1,33 @@
+﻿@page
+@model QRGenerator.Pages.IndexModel
+@{
+    ViewData["Title"] = "QR Code Generator";
+}
+
+<div class="container">
+    <div class="header">
+        <h1>QR Code Generator</h1>
+    </div>
+
+    <div class="input-block">
+        <form method="post" enctype="multipart/form-data">
+            <label for="inputText">Введите текст или ссылку:</label>
+            <input type="text" id="inputText" name="InputText" placeholder="https://www.example.com " />
+            <button type="submit" asp-page-handler="Generate">Сгенерировать QR-код</button>
+        </form>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.QRCodeBase64))
+    {
+        <div class="qr-code-block">
+            <h3>Ваш QR-код:</h3>
+            <img class="qr-code" src="@Model.QRCodeBase64" alt="QR Code" />
+        </div>
+
+        <div class="download-btn">
+            <a href="@Model.QRCodeBase64" download="qrcode.png">
+                <button>Сохранить QR-код</button>
+            </a>
+        </div>
+    }
+</div>
